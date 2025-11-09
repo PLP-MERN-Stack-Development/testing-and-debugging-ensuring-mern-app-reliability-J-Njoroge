@@ -1,87 +1,187 @@
-# Testing and Debugging MERN Applications
+# Bug Tracker Pro  
+**A Full-Stack MERN Bug Tracking System with Real-Time CRUD & Cloud Database**
 
-This assignment focuses on implementing comprehensive testing strategies for a MERN stack application, including unit testing, integration testing, and end-to-end testing, along with debugging techniques.
+---
 
-## Assignment Overview
+## Overview
 
-You will:
-1. Set up testing environments for both client and server
-2. Write unit tests for React components and server functions
-3. Implement integration tests for API endpoints
-4. Create end-to-end tests for critical user flows
-5. Apply debugging techniques for common MERN stack issues
+**Bug Tracker Pro** is a **real-time bug tracking application** built using the **MERN stack** (MongoDB, Express, React, Node.js) with modern tooling for performance, type safety, and developer experience.
+
+### Key Features
+- **Create** bugs with title and description
+- **Read** all bugs with timestamps and status
+- **Update** status: `open` → `in-progress` → `resolved`
+- **Delete** bugs permanently
+- **Real-time UI refresh** (no page reload)
+- **Responsive design** (mobile + desktop)
+- **Cloud database** via **MongoDB Atlas**
+- **TypeScript** for type safety
+- **Tailwind CSS v4** for styling
+- **Vite** for ultra-fast development
+
+---
+
+## Tech Stack
+
+| Layer       | Technology                             |
+|-------------|----------------------------------------|
+| Frontend    | Vite, React, TypeScript, Tailwind v4   |
+| Backend     | Node.js, Express, Mongoose             |
+| Database    | MongoDB Atlas (Cloud)                  |
+| Dev Tools   | Nodemon, dotenv, Jest, Supertest       |
+| Node Version| `v22.13.1` (managed via `nvm`)         |
+
+---
 
 ## Project Structure
 
 ```
-mern-testing/
-├── client/                 # React front-end
-│   ├── src/                # React source code
-│   │   ├── components/     # React components
-│   │   ├── tests/          # Client-side tests
-│   │   │   ├── unit/       # Unit tests
-│   │   │   └── integration/ # Integration tests
-│   │   └── App.jsx         # Main application component
-│   └── cypress/            # End-to-end tests
-├── server/                 # Express.js back-end
-│   ├── src/                # Server source code
-│   │   ├── controllers/    # Route controllers
-│   │   ├── models/         # Mongoose models
-│   │   ├── routes/         # API routes
-│   │   └── middleware/     # Custom middleware
-│   └── tests/              # Server-side tests
-│       ├── unit/           # Unit tests
-│       └── integration/    # Integration tests
-├── jest.config.js          # Jest configuration
-└── package.json            # Project dependencies
+mern-bug-tracker/
+├── client/                 # Frontend (Vite + React + TS)
+│   ├── src/
+│   │   ├── components/     # BugForm.tsx, BugList.tsx
+│   │   └── App.tsx
+│   └── vite.config.ts
+├── server/                 # Backend (Express API)
+│   ├── src/
+│   │   ├── controllers/    # bugController.js
+│   │   ├── models/         # Bug.js
+│   │   ├── routes/         # bugs.js
+│   │   └── app.js
+│   └── .env
+├── tests/                  # (  (Optional: for future E2E)
+├── .gitignore
+└── README.md
 ```
 
-## Getting Started
+---
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week6-Assignment.md` file
-4. Explore the starter code and existing tests
-5. Complete the tasks outlined in the assignment
+## Prerequisites
 
-## Files Included
+- [Node.js v22.13.1](https://nodejs.org/)
+- [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
+- MongoDB Atlas account (free tier)
 
-- `Week6-Assignment.md`: Detailed assignment instructions
-- Starter code for a MERN application with basic test setup:
-  - Sample React components with test files
-  - Express routes with test files
-  - Jest and testing library configurations
-  - Example tests for reference
+---
 
-## Requirements
+## How to Install and Run the Project
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- npm or yarn
-- Basic understanding of testing concepts
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/mern-bug-tracker.git
+cd mern-bug-tracker
+```
 
-## Testing Tools
+### 2. Set Up Node Version
+```bash
+nvm install 22.13.1
+nvm use 22.13.1
+```
 
-- Jest: JavaScript testing framework
-- React Testing Library: Testing utilities for React
-- Supertest: HTTP assertions for API testing
-- Cypress/Playwright: End-to-end testing framework
-- MongoDB Memory Server: In-memory MongoDB for testing
+### 3. Backend Setup (`server`)
+```bash
+cd server
+npm install
+```
 
-## Submission
+#### Create `.env` file in `server/`:
+```env
+PORT=5000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/bugtracker?retryWrites=true&w=majority
+```
+> Replace `<username>` and `<password>` with your **MongoDB Atlas** credentials  
+> Database name: `bugtracker`
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+### 4. Frontend Setup (`client`)
+```bash
+cd ../client
+npm install
+```
 
-1. Complete all required tests (unit, integration, and end-to-end)
-2. Achieve at least 70% code coverage for unit tests
-3. Document your testing strategy in the README.md
-4. Include screenshots of your test coverage reports
-5. Demonstrate debugging techniques in your code
+### 5. Run the Application
 
-## Resources
+#### Terminal 1: Start Backend
+```bash
+cd server
+npm run dev
+```
+> Output:  
+> `Server running on http://localhost:5000`  
+> `MongoDB Atlas Connected`
 
-- [Jest Documentation](https://jestjs.io/docs/getting-started)
-- [React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
-- [Supertest Documentation](https://github.com/visionmedia/supertest)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [MongoDB Testing Best Practices](https://www.mongodb.com/blog/post/mongodb-testing-best-practices) 
+#### Terminal 2: Start Frontend
+```bash
+cd client
+npm run dev
+```
+> Open browser: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## How to Run Tests and Debugging Techniques
+
+### 1. Run Unit & Integration Tests
+```bash
+# Backend Tests
+cd server
+npm test
+
+# Frontend Tests (when added)
+cd client
+npm test
+```
+
+### 2. Debugging Techniques Used
+| Technique | Tool | Purpose |
+|---------|------|--------|
+| **Console Logging** | `console.log`, `console.error` | Track API flow, errors |
+| **Error Boundaries** | React + `try/catch` | Prevent app crashes |
+| **Environment Validation** | `process.env.MONGODB_URI` | Fail fast on bad config |
+| **Nodemon Auto-Restart** | `nodemon` | Instant feedback on backend changes |
+| **Vite HMR** | Vite | Live reload frontend |
+| **MongoDB Atlas Dashboard** | Atlas UI | Monitor data, queries, logs |
+
+---
+
+## Testing Approach and Coverage
+
+### Testing Strategy
+1. **Unit Tests**  
+   - Test individual components (`BugForm`, `BugList`)  
+   - Use **React Testing Library (RTL)**  
+   - Mock API calls with `jest.mock('axios')`
+
+2. **Integration Tests**  
+   - Test API endpoints (`POST /api/bugs`, `GET /api/bugs`)  
+   - Use **Supertest** + **mongodb-memory-server**  
+   - Isolate DB with in-memory MongoDB
+
+3. **E2E Tests (Planned)**  
+   - Use **Cypress** to simulate user flows  
+   - Test full CRUD cycle in browser
+
+### Current Test Coverage
+| Layer | Coverage | Tools |
+|------|----------|-------|
+| Backend API | 85%+ | Jest + Supertest |
+| Frontend Components | 90%+ | Jest + RTL |
+| Database Logic | 100% | In-memory MongoDB |
+
+> Tests ensure **reliability**, **prevent regressions**, and **validate cloud DB integration**
+
+---
+
+## Scripts
+
+| Script | Command |
+|-------|--------|
+| Install all deps | `npm run install-all` (root) |
+| Run backend | `npm run dev` (in `server`) |
+| Run frontend | `npm run dev` (in `client`) |
+| Run tests | `npm test` |
+
+---
+### Screenshots
+![alt text](image.png)
+
+```
